@@ -112,7 +112,7 @@ describe('lambdas', function() {
 });
 
 describe('the X combinator', function() {
-    it('is awesome', function() {
+    it('works', function() {
         var parse = require('../parse').parseLisp;
         var tokenize = require('../tokenize').tokenizeLisp;
         var X_comb =
@@ -128,17 +128,10 @@ describe('the X combinator', function() {
             '    (if (eq? n 0)' +
             '      1' +
             '      (* n (f (- n 1))))))))';
-        // var expr = ['begin',
-        //             parse(tokenize(X_comb)),
-        //             parse(tokenize(fact)),
-        //             ['fact', 10]];
-        // expect(evalLisp(expr)).toEqual(3628800);
-        var bindings = {};
-        evalLisp(parse(tokenize(X_comb)), bindings);
-        expect(bindings.X).toBeDefined();
-        evalLisp(parse(tokenize(fact)), bindings);
-        expect(bindings.X).toBeDefined();
-        expect(bindings.fact).toBeDefined();
-        expect(evalLisp(['fact', 10], bindings)).toEqual(3628800);
+        var expr = ['begin',
+                    parse(tokenize(X_comb)),
+                    parse(tokenize(fact)),
+                    ['fact', 10]];
+        expect(evalLisp(expr)).toEqual(3628800);
     });
 });
