@@ -4,7 +4,7 @@ function _parseLisp(tokens, start) {
     if (start === undefined)
         start = 0;
 
-    if ('-0123456789'.indexOf(tokens[start][0]) !== -1)
+    if (tokens[start].match(/^-?[0123456789]/))
         return [parseFloat(tokens[start]), 1];
     if (tokens[start] === '(')
         return parseList(tokens, start);

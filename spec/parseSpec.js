@@ -25,4 +25,8 @@ describe('the parser', function() {
         expect(parse(nestedA)).toEqual([['lambda', ['x'], 'x'], 4]);
         expect(parse(nestedB)).toEqual([[], ['foobar', 42]]);
     });
+
+    it('knows that "-" is a function, not a number', function() {
+        expect(parse(['(', '-', '2', '1', ')'])).toEqual(['-', 2, 1]);
+    });
 });
