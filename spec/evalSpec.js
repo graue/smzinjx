@@ -111,6 +111,16 @@ describe('lambdas', function() {
     });
 });
 
+describe('execution environment', function() {
+    it('preserves bindings', function() {
+        var bindings = {};
+        evalLisp(['define', 'square',
+                     ['lambda', ['x'], ['*', 'x', 'x']]],
+                 bindings);
+        expect(evalLisp(['square', 3], bindings)).toEqual(9);
+    });
+});
+
 describe('the X combinator', function() {
     it('works', function() {
         var parse = require('../parse').parseLisp;
