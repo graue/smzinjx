@@ -29,11 +29,7 @@ function parseList(tokens, start) {
 
 exports.parseLisp = function(tokens) {
     var res = _parseLisp(tokens);
-    if (res[1] !== tokens.length) {
-        console.log('throwing error, content is:');
-        console.log(res[0]);
-        console.log('and ' + res[1] + ' tokens were consumed');
+    if (res[1] !== tokens.length)
         throw new Error("Unexpected token: " + tokens[res[1]]);
-    }
     return res[0];
 };
