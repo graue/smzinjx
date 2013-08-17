@@ -30,6 +30,7 @@ documentReady(function() {
             error = true;
         }
         buffer.innerHTML += '> ' + input + "\n" + output + "\n";
+        window.scrollTo(window.scrollX, window.scrollMaxY);
         if (error)
             this.select();
         else
