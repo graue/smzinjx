@@ -1,3 +1,5 @@
+var runtime = require('./runtime');
+
 function shallowCopy(obj) {
     var clone = {};
     Object.keys(obj).forEach(function(key) {
@@ -8,11 +10,6 @@ function shallowCopy(obj) {
 
 function has(dict, key) {
     return Object.prototype.hasOwnProperty.call(dict, key);
-}
-
-// Returns true if the value is truthy for Lisp's purposes.
-function lispTruthy(value) {
-    return value !== false && value !== null && value !== undefined;
 }
 
 function LispLambda(bindings, paramNames, body) {
@@ -30,21 +27,6 @@ LispLambda.prototype.apply = function(_, args) {
             (args[index] !== undefined) ? args[index] : null;
     });
     return _evalLisp(this.body, innerBindings);
-};
-
-var builtins = {
-    '+': function(a, b) { return a + b; },
-    '-': function(a, b) { return a - b; },
-    'eq?': function(a, b) { return a === b; },
-    'not': function(a) { return !lispTruthy(a); },
-    'number?': function(a) { return typeof a === 'number'; },
-    'string?': function(a) { return typeof a === 'string'; },
-    '*': function(a, b) { return a * b; },
-    '/': function(a, b) { return a / b; },
-    '<': function(a, b) { return a < b; },
-    '>': function(a, b) { return a > b; },
-    '<=': function(a, b) { return a <= b; },
-    '>=': function(a, b) { return a >= b; }
 };
 
 function _evalLisp(tree, bindings) {
@@ -68,7 +50,7 @@ function _evalLisp(tree, bindings) {
         return tree[1];
     if (tree[0] === 'if') {
         var test = _evalLisp(tree[1], bindings);
-        if (lispTruthy(test))
+        if (runtime.lispTruthy(test))
             return _evalLisp(tree[2], bindings);
         return _evalLisp(tree[3], bindings);
     }
@@ -98,7 +80,7 @@ function _evalLisp(tree, bindings) {
     // tree[0] is a function we'll be calling.
     // It could be a builtin, or something that when eval'd yields a
     // function.
-    var func = builtins[tree[0]] || _evalLisp(tree[0], bindings);
+    var func = runtime.builtins[tree[0]] || _evalLisp(tree[0], bindings);
     var args = tree.slice(1).map(function(exp) {
         return _evalLisp(exp, bindings);
     });
