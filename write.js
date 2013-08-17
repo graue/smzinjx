@@ -7,6 +7,8 @@ function writeLispValue(val) {
         return '#t';
     if (val === false)
         return '#f';
+    if (val === undefined || val === null)
+        return 'nil';
     if (val instanceof Array)
         return '(' + val.map(writeLispValue).join(' ') + ')';
     return '[function]';

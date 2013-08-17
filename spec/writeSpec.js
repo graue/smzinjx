@@ -20,4 +20,8 @@ describe('the writer', function() {
     it('writes strings as symbols', function() {
         expect(write('test')).toEqual('test');
     });
+    it('prints nil for undefined or null', function() {
+        expect(write(undefined)).toEqual('nil');
+        expect(write(null)).toEqual('nil');
+    });
 });
