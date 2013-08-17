@@ -16,6 +16,8 @@ Toy Lisp interpreter, implementing the nine types of forms in Peter Norvig's
 Runs in Node.js or the browser. For a node REPL, run `node smzinjx.js`.
 For a browser REPL, install [Browserify](http://browserify.org/), run `make`,
 and navigate to browser/index.html.
+To run tests, install [jasmine-node](https://github.com/mhevery/jasmine-node)
+and run `jasmine-node spec`.
 
 I didn't want to think about a name for this, so I just hit random keys,
 hence "Smzinjx". It's pronounced just the way it looks :P
