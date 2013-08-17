@@ -12,7 +12,7 @@ function documentReady(callback) {
         document.addEventListener('DOMContentLoaded', callback, false);
 }
 
-var history, textbox;
+var history, textbox, bindings = {};
 
 documentReady(function() {
     buffer = document.getElementById('history');
@@ -23,7 +23,7 @@ documentReady(function() {
         this.disabled = true;
         var input = this.value, output, error = false;
         try {
-            var result = evalLisp(parseLisp(tokenizeLisp(input)));
+            var result = evalLisp(parseLisp(tokenizeLisp(input)), bindings);
             output = writeLispValue(result);
         } catch (ex) {
             output = 'Error: ' + ex.message;
