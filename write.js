@@ -9,7 +9,7 @@ function writeLispValue(val) {
         return '#f';
     if (val === undefined || val === null)
         return 'nil';
-    if (val instanceof Array)
+    if (Array.isArray(val))
         return '(' + val.map(writeLispValue).join(' ') + ')';
     return '[function]';
 }

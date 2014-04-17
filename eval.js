@@ -84,7 +84,7 @@ function _evalLisp(tree, bindings) {
     var args = tree.slice(1).map(function(exp) {
         return _evalLisp(exp, bindings);
     });
-    if (func instanceof Function || func instanceof LispLambda)
+    if (typeof func === 'function' || func instanceof LispLambda)
         return func.apply(func, args);
 
     throw new Error("Attempt to call non-function: " + func.toString());
